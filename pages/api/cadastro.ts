@@ -28,6 +28,15 @@ const endpointCadastro = async (
     if (!usuario.senha || usuario.senha.length < 4) {
       return res.status(400).json({ erro: "Senha inválida" });
     }
+
+    // Validação se ja existe usuario com o mesmo email
+    const usuarioComMesmoEmail = await UsuarioModel.find({email : usuario.email});
+    if(usuarioComMesmoEmail && usuarioComMesmoEmail.length > 0) {
+      return res.status(400).json({ erro: "Ja existe uma conta com o email informado" });
+    }
+
+
+    // Salvar no banco de dados
     const usuarioASerSalvo = {
       nome: usuario.nome,
       email: usuario.email,
