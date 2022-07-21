@@ -16,7 +16,7 @@ const endpointLogin = async (
     // Pegar a chave do JWT
     const {MINHA_CHAVE_JWT} = process.env;
     if(!MINHA_CHAVE_JWT){
-        return res.status(500).json({erro : 'Env Jwt nao informada'})
+        return res.status(500).json({error : 'Env Jwt nao informada'})
     }
 
     if(req.method === 'POST') {
@@ -34,9 +34,9 @@ const endpointLogin = async (
                 email: usuarioEncontrado.email, 
                 token});
             }
-            return res.status(405).json({erro : 'Usuário ou senha não encontrado'})
+            return res.status(405).json({error : 'Usuário ou senha não encontrado'})
     }
-    return res.status(405).json({erro : 'Metodo informado não é válido'});
+    return res.status(405).json({error : 'Metodo informado não é válido'});
 }
 
 export default conectarMongoDB(endpointLogin);

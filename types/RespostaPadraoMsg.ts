@@ -1,5 +1,5 @@
 export type RespostaPadraoMsg ={
     msg? : string,
-    erro? : string,
+    error? : string,
 
 }

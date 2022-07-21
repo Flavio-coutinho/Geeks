@@ -13,7 +13,7 @@ const endpointCadastro = async (
     const usuario = req.body as CadastroRequisicao;
 
     if (!usuario.nome || usuario.nome.length < 2) {
-      return res.status(400).json({ erro: "Nome inválido" });
+      return res.status(400).json({ error : "Nome inválido" });
     }
 
     if (
@@ -22,17 +22,17 @@ const endpointCadastro = async (
       !usuario.email.includes("@") ||
       !usuario.email.includes(".")
     ) {
-      return res.status(400).json({ erro: "Email inválido" });
+      return res.status(400).json({ error : "Email inválido" });
     }
 
     if (!usuario.senha || usuario.senha.length < 4) {
-      return res.status(400).json({ erro: "Senha inválida" });
+      return res.status(400).json({ error : "Senha inválida" });
     }
 
     // Validação se ja existe usuario com o mesmo email
     const usuarioComMesmoEmail = await UsuarioModel.find({email : usuario.email});
     if(usuarioComMesmoEmail && usuarioComMesmoEmail.length > 0) {
-      return res.status(400).json({ erro: "Ja existe uma conta com o email informado" });
+      return res.status(400).json({ error : "Ja existe uma conta com o email informado" });
     }
 
 
@@ -45,7 +45,7 @@ const endpointCadastro = async (
     await UsuarioModel.create(usuarioASerSalvo);
     return res.status(200).json({ msg: "Usuario criado com sucesso" });
   }
-  return res.status(404).json({ erro: "Método informado não é válido" });
+  return res.status(404).json({ error : "Método informado não é válido" });
 };
 
 export default conectarMongoDB(endpointCadastro);
