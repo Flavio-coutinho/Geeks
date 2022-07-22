@@ -12,7 +12,7 @@ export const validarTokenJWT =
         return res
           .status(500)
           .json({
-            error: "ENV chave JWT não informada na execução do projeto",
+            erro: "ENV chave JWT não informada na execução do projeto",
           });
       }
 
@@ -20,7 +20,7 @@ export const validarTokenJWT =
       if (!req || !req.headers) {
         return res
           .status(401)
-          .json({ error: "Não foi possível validar o token de acesso " });
+          .json({ erro: "Não foi possível validar o token de acesso " });
       }
 
       if (req.method !== "OPTIONS") {
@@ -28,21 +28,21 @@ export const validarTokenJWT =
         if (!authorization) {
           return res
             .status(401)
-            .json({ error: "Não foi possível validar o token de acesso " });
+            .json({ erro: "Não foi possível validar o token de acesso " });
         }
 
         const token = authorization.substring(7);
         if (!token) {
           return res
             .status(401)
-            .json({ error: "Não foi possível validar o token de acesso " });
+            .json({ erro: "Não foi possível validar o token de acesso " });
         }
 
         const decoded = jwt.verify(token, MINHA_CHAVE_JWT) as JwtPayload;
         if (!decoded) {
           return res
             .status(401)
-            .json({ error: "Não foi possível validar o token de acesso " });
+            .json({ erro: "Não foi possível validar o token de acesso " });
         }
 
         if (!req.query) {
@@ -55,7 +55,7 @@ export const validarTokenJWT =
       console.log(e);
       return res
         .status(401)
-        .json({ error: "Não foi possível validar o token de acesso " });
+        .json({ erro: "Não foi possível validar o token de acesso " });
     }
 
     return handler(req, res);
